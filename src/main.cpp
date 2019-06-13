@@ -10,38 +10,38 @@ using namespace std;
 
 // 最长公共子序列（不连续）
 int lcs_length_(const string &str1, const string &str2, vector<vector<int> > &dp) {
-	unsigned int i, j;
+    unsigned int i, j;
     unsigned int m, n;
     m = str1.length();
     n = str2.length();
-	if (str1 == "" || str2 == "")
-		return 0;
+    if (str1 == "" || str2 == "")
+        return 0;
 
-	for (i = 0; i <= m; i++) {
-		dp[i][0] = 0;
-	}
-	for (j = 0; j <= n; j++) {
-		dp[0][j] = 0;
-	}
-	for (i = 1; i <= m; i++) {
-		for (j = 1; j <= n; j++) {
-			if (str1[i - 1] == str2[j - 1]) {
-				dp[i][j] = dp[i - 1][j - 1] + 1;
-			}
-			else {
-				if (dp[i - 1][j] >= dp[i][j - 1])
-					dp[i][j] = dp[i - 1][j];
-				else
-					dp[i][j] = dp[i][j-1];
-			}
-		}
-	}
-	return dp[str1.length()][str2.length()];
+    for (i = 0; i <= m; i++) {
+        dp[i][0] = 0;
+    }
+    for (j = 0; j <= n; j++) {
+        dp[0][j] = 0;
+    }
+    for (i = 1; i <= m; i++) {
+        for (j = 1; j <= n; j++) {
+            if (str1[i - 1] == str2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1;
+            }
+            else {
+                if (dp[i - 1][j] >= dp[i][j - 1])
+                    dp[i][j] = dp[i - 1][j];
+                else
+                    dp[i][j] = dp[i][j-1];
+            }
+        }
+    }
+    return dp[str1.length()][str2.length()];
 }
 
 
 int lcs(const string &str1, const string &str2){
-	vector<vector<int> > dp(str1.length() + 1, vector<int>(str2.length() + 1));
+    vector<vector<int> > dp(str1.length() + 1, vector<int>(str2.length() + 1));
     return lcs_length_(str1, str2, dp);
 }
 
