@@ -1,0 +1,10 @@
+*.so
+MANIFEST
+*.py[cod]
+*.egg-info
+.DS_Store
+_build
+_generate
+build
+dist
+tmp
