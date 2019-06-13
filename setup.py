@@ -3,8 +3,6 @@ from setuptools.command.build_ext import build_ext
 import sys
 import setuptools
 
-__version__ = '0.0.1'
-
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -90,7 +88,7 @@ class BuildExt(build_ext):
 
 setup(
     name='pylcs',
-    version=__version__,
+    version='0.0.2',
     author='Meteorix',
     author_email='lxhustauto@gmail.com',
     url='https://github.com/Meteorix/pylcs',
