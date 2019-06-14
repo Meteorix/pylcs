@@ -66,11 +66,11 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(pylcs, m) {
     m.def("lcs", &lcs, R"pbdoc(
-        Longest common subsequnce
+        Longest common subsequence
     )pbdoc");
 
     m.def("lcs_of_list", &lcs_of_list, R"pbdoc(
-        Longest common subsequnce of list
+        Longest common subsequence of list
     )pbdoc");
 
 }
