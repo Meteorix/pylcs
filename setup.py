@@ -88,7 +88,7 @@ class BuildExt(build_ext):
 
 setup(
     name='pylcs',
-    version='0.0.2',
+    version='0.0.3',
     author='Meteorix',
     author_email='lxhustauto@gmail.com',
     url='https://github.com/Meteorix/pylcs',
