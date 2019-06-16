@@ -8,14 +8,36 @@
 using namespace std;
 
 
+vector<string> utf8_split(const string &str){
+    vector<string> split;
+    int len = str.length();
+    int left = 0;
+    int right = 1;
+
+    for (int i = 0; i < len; i++){
+        if (right >= len || ((str[right] & 0xc0) != 0x80)){
+            string s = str.substr(left, right - left);
+            split.push_back(s);
+            // printf("%s %d %d\n", s.c_str(), left, right);
+            left = right;
+        }
+        right ++;
+    }
+    return split;
+}
+
+
 // 最长公共子序列（不连续）
-int lcs_length_(const string &str1, const string &str2, vector<vector<int> > &dp) {
-    unsigned int i, j;
-    unsigned int m, n;
-    m = str1.length();
-    n = str2.length();
+int lcs_length_(const string &str1, const string &str2) {
     if (str1 == "" || str2 == "")
         return 0;
+    vector<string> s1 = utf8_split(str1);
+    vector<string> s2 = utf8_split(str2);
+    int m = s1.size();
+    int n = s2.size();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+    int i, j;
+    // printf("%d %d\n", m, n);
 
     for (i = 0; i <= m; i++) {
         dp[i][0] = 0;
@@ -25,10 +47,9 @@ int lcs_length_(const string &str1, const string &str2, vector<vector<int> > &dp
     }
     for (i = 1; i <= m; i++) {
         for (j = 1; j <= n; j++) {
-            if (str1[i - 1] == str2[j - 1]) {
+            if (s1[i - 1] == s2[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1] + 1;
-            }
-            else {
+            } else {
                 if (dp[i - 1][j] >= dp[i][j - 1])
                     dp[i][j] = dp[i - 1][j];
                 else
@@ -36,19 +57,21 @@ int lcs_length_(const string &str1, const string &str2, vector<vector<int> > &dp
             }
         }
     }
-    return dp[str1.length()][str2.length()];
+    return dp[m][n];
 }
 
 
 // 最长公共子串（连续）
-int lcs2_length_(const string &str1, const string &str2, vector<vector<int> > &dp) {
-    unsigned int i, j;
-    unsigned int m, n;
-    unsigned int max = 0;
-    m = str1.length();
-    n = str2.length();
+int lcs2_length_(const string &str1, const string &str2) {
     if (str1 == "" || str2 == "")
         return 0;
+    vector<string> s1 = utf8_split(str1);
+    vector<string> s2 = utf8_split(str2);
+    int m = s1.size();
+    int n = s2.size();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+    int i, j;
+    int max = 0;
 
     for (i = 0; i <= m; i++) {
         dp[i][0] = 0;
@@ -58,7 +81,7 @@ int lcs2_length_(const string &str1, const string &str2, vector<vector<int> > &d
     }
     for (i = 1; i <= m; i++) {
         for (j = 1; j <= n; j++) {
-            if (str1[i - 1] == str2[j - 1]) {
+            if (s1[i - 1] == s2[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1] + 1;
                 if (dp[i][j] > max){
                     max = dp[i][j];
@@ -75,15 +98,13 @@ int lcs2_length_(const string &str1, const string &str2, vector<vector<int> > &d
 
 // TODO 返回子序列
 int lcs(const string &str1, const string &str2){
-    vector<vector<int> > dp(str1.length() + 1, vector<int>(str2.length() + 1));
-    return lcs_length_(str1, str2, dp);
+    return lcs_length_(str1, str2);
 }
 
 
 // TODO 返回子串
 int lcs2(const string &str1, const string &str2){
-    vector<vector<int> > dp(str1.length() + 1, vector<int>(str2.length() + 1));
-    return lcs2_length_(str1, str2, dp);
+    return lcs2_length_(str1, str2);
 }
 
 
@@ -91,7 +112,7 @@ vector<int> lcs_of_list(const string &str1, vector<string> &str_list){
     int size = str_list.size();
     vector<int> ls(size);
     for (int i = 0; i < size; i++){
-        unsigned int l = lcs(str1, str_list[i]);
+        int l = lcs(str1, str_list[i]);
         ls[i] = l;
     }
     return ls;
@@ -102,14 +123,11 @@ vector<int> lcs2_of_list(const string &str1, vector<string> &str_list){
     int size = str_list.size();
     vector<int> ls(size);
     for (int i = 0; i < size; i++){
-        unsigned int l = lcs2(str1, str_list[i]);
+        int l = lcs2(str1, str_list[i]);
         ls[i] = l;
     }
     return ls;
 }
-
-
-// TODO 最长公共子串（连续）
 
 
 namespace py = pybind11;
@@ -133,4 +151,3 @@ PYBIND11_MODULE(pylcs, m) {
     )pbdoc");
 
 }
-
