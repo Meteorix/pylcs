@@ -1,0 +1,20 @@
+# encoding=utf-8
+import pylcs
+
+
+def test_lcs():
+    assert pylcs.lcs("aaa", "bbb") == 0
+    assert pylcs.lcs("aaa", "aabbbaa") == 3
+
+
+def test_lcs_of_list():
+    assert pylcs.lcs_of_list("aaa", ["aabbbaa"] * 10) == [3] * 10
+
+
+def test_lcs2():
+    assert pylcs.lcs2("aaa", "bbb") == 0
+    assert pylcs.lcs2("aaa", "aabbbaa") == 2
+
+
+def test_lcs2_of_list():
+    assert pylcs.lcs2_of_list("aaa", ["aabbbaa"] * 10) == [2] * 10
