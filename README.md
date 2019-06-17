@@ -2,6 +2,7 @@
 **pylcs** is a super fast c++ library which adopts dynamic programming(DP) algorithm to solve two classic LCS problems as below .  
   
 [The longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem) problem is the problem of finding the longest subsequence common to all sequences in a set of sequences (often just two sequences).  
+  
 [The longest common substring](https://en.wikipedia.org/wiki/Longest_common_substring_problem) problem is to find the longest string (or strings) that is a substring (or are substrings) of two or more strings.  
 
 We also support Chinese(or any UTF-8) string 
