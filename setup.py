@@ -85,6 +85,8 @@ class BuildExt(build_ext):
             ext.extra_compile_args = opts
         build_ext.build_extensions(self)
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(
     name='pylcs',
@@ -93,7 +95,8 @@ setup(
     author_email='lxhustauto@gmail.com',
     url='https://github.com/Meteorix/pylcs',
     description='super fast cpp implementation of longest common subsequence',
-    long_description='',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},
