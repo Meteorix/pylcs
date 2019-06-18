@@ -24,3 +24,11 @@ def test_lcs2():
 def test_lcs2_of_list():
     assert pylcs.lcs2_of_list("aaa", ["aabbbaa"] * 10) == [2] * 10
     assert pylcs.lcs2_of_list("aaa你好", ["好呀你"] * 10) == [1] * 10
+
+
+def test_edit_distance():
+    assert pylcs.edit_distance("aaa", "bbb") == 3
+    assert pylcs.edit_distance("aaa", "aabbbaa") == 4
+    assert pylcs.edit_distance("你好", "中国") == 2
+    assert pylcs.edit_distance("aaa你好", "你好呀") == 4
+
