@@ -130,6 +130,36 @@ vector<int> lcs2_of_list(const string &str1, vector<string> &str_list){
 }
 
 
+// 编辑距离
+int levenshtein_distance(const string &str1, const string &str2) {
+    if (str1 == "" || str2 == "")
+        return 0;
+    vector<string> s1 = utf8_split(str1);
+    vector<string> s2 = utf8_split(str2);
+    int m = s1.size();
+    int n = s2.size();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+    int i, j;
+
+    for (i = 0; i <= m; i++) {
+        dp[i][0] = i;
+    }
+    for (j = 0; j <= n; j++) {
+        dp[0][j] = j;
+    }
+    for (i = 1; i <= m; i++) {
+        for (j = 1; j <= n; j++) {
+            if (s1[i - 1] == s2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else {
+                dp[i][j] = 1 + min({dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]});
+            }
+        }
+    }
+    return dp[m][n];
+}
+
+
 namespace py = pybind11;
 
 
@@ -148,6 +178,14 @@ PYBIND11_MODULE(pylcs, m) {
 
     m.def("lcs2_of_list", &lcs2_of_list, R"pbdoc(
         Longest common substring of list
+    )pbdoc");
+
+    m.def("levenshtein_distance", &levenshtein_distance, R"pbdoc(
+        Levenshtein Distance of Two Strings
+    )pbdoc");
+
+    m.def("edit_distance", &levenshtein_distance, R"pbdoc(
+        Same As levenshtein_distance(): Levenshtein Distance of Two Strings
     )pbdoc");
 
 }
