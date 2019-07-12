@@ -3,9 +3,11 @@
   
 [The longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem) problem is the problem of finding the longest subsequence common to all sequences in a set of sequences (often just two sequences).  
   
-[The longest common substring](https://en.wikipedia.org/wiki/Longest_common_substring_problem) problem is to find the longest string (or strings) that is a substring (or are substrings) of two or more strings.  
+[The longest common substring](https://en.wikipedia.org/wiki/Longest_common_substring_problem) problem is to find the longest string (or strings) that is a substring (or are substrings) of two or more strings.
 
-We also support Chinese(or any UTF-8) string 
+[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance), aka ``edit distance`` is also supported. Emm...forget the package name. Example usage is in [tests](./tests/test_pylcs.py).
+
+We also support Chinese(or any UTF-8) string.
 
 
 Install
