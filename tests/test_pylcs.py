@@ -32,3 +32,8 @@ def test_edit_distance():
     assert pylcs.edit_distance("你好", "中国") == 2
     assert pylcs.edit_distance("aaa你好", "你好呀") == 4
 
+
+def test_edit_distance_of_list():
+    assert pylcs.edit_distance_of_list("aaa", ["bbb"] * 10) == [3] * 10
+    assert pylcs.edit_distance_of_list("aaa你好", ["你好呀"] * 10) == [4] * 10
+    assert pylcs.edit_distance_of_list("aaa你好", ["bbb", "你好呀"] * 10) == [5, 4] * 10

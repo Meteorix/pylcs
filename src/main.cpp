@@ -160,6 +160,17 @@ int levenshtein_distance(const string &str1, const string &str2) {
 }
 
 
+vector<int> levenshtein_distance_of_list(const string &str1, vector<string> &str_list){
+    int size = str_list.size();
+    vector<int> ls(size);
+    for (int i = 0; i < size; i++){
+        int l = levenshtein_distance(str1, str_list[i]);
+        ls[i] = l;
+    }
+    return ls;
+}
+
+
 namespace py = pybind11;
 
 
@@ -188,4 +199,11 @@ PYBIND11_MODULE(pylcs, m) {
         Same As levenshtein_distance(): Levenshtein Distance of Two Strings
     )pbdoc");
 
+    m.def("levenshtein_distance_of_list", &levenshtein_distance_of_list, R"pbdoc(
+        Levenshtein Distance of one string to a list of strings
+    )pbdoc");
+
+    m.def("edit_distance_of_list", &levenshtein_distance_of_list, R"pbdoc(
+        Levenshtein Distance of one string to a list of strings
+    )pbdoc");
 }

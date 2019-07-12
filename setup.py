@@ -90,7 +90,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pylcs',
-    version='0.0.5',
+    version='0.0.6',
     author='Meteorix',
     author_email='lxhustauto@gmail.com',
     url='https://github.com/Meteorix/pylcs',
