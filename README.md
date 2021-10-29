@@ -25,36 +25,74 @@ import pylcs
 #  finding the longest common subsequence length of string A and string B
 A = 'We are shannonai'
 B = 'We like shannonai'
-pylcs.lcs(A, B)
+pylcs.lcs_sequence_length(A, B)
 """
->>> pylcs.lcs(A, B)
+>>> pylcs.lcs_sequence_length(A, B)
 14
+"""
+
+#  finding alignment from string A to B
+A = 'We are shannonai'
+B = 'We like shannonai'
+res = pylcs.lcs_sequence_idx(A, B)
+''.join([B[i] for i in res if i != -1])
+"""
+>>> res
+[0, 1, 2, -1, -1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+>>> ''.join([B[i] for i in res if i != -1])
+'We e shannonai'
 """
 
 #  finding the longest common subsequence length of string A and a list of string B
 A = 'We are shannonai'
 B = ['We like shannonai', 'We work in shannonai', 'We are not shannonai']
-pylcs.lcs_of_list(A, B)
+pylcs.lcs_sequence_of_list(A, B)
 """
->>> pylcs.lcs_of_list(A, B)
+>>> pylcs.lcs_sequence_of_list(A, B)
 [14, 14, 16]
 """
 
 # finding the longest common substring length of string A and string B
 A = 'We are shannonai'
 B = 'We like shannonai'
-pylcs.lcs2(A, B)
+pylcs.lcs_string_length(A, B)
 """
->>> pylcs.lcs2(A, B)
+>>> pylcs.lcs_string_length(A, B)
 11
+"""
+
+#  finding alignment from string A to B
+A = 'We are shannonai'
+B = 'We like shannonai'
+res = pylcs.lcs_string_idx(A, B)
+''.join([B[i] for i in res if i != -1])
+"""
+>>> res
+[-1, -1, -1, -1, -1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+>>> ''.join([B[i] for i in res if i != -1])
+'e shannonai'
 """
 
 #  finding the longest common substring length of string A and a list of string B
 A = 'We are shannonai'
 B = ['We like shannonai', 'We work in shannonai', 'We are not shannonai']
-pylcs.lcs2_of_list(A, B)
+pylcs.lcs_string_of_list(A, B)
 """
->>> pylcs.lcs2_of_list(A, B)
+>>> pylcs.lcs_string_of_list(A, B)
 [11, 10, 10]
 """
 
+#  finding the weighted edit distance from string A to B
+pylcs.edit_distance("aaa", "aba")
+pylcs.edit_distance("aaa", "aba", {'a': {'b': 2.0}})
+pylcs.edit_distance("", "aa", {'': {'a': 0.5}})
+#  weight['']['a'] means inserting a char 'a' costs 0.5
+#  similarly, weight['a'][''] means the score of deleting a char 'a'
+"""
+>>> pylcs.edit_distance("aaa", "aba")
+1
+>>> pylcs.edit_distance("aaa", "aba", {'a': {'b': 2.0}})
+2.0
+>>> pylcs.edit_distance("", "aa", {'': {'a': 0.5}})
+1.0
+"""

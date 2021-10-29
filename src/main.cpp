@@ -277,13 +277,15 @@ namespace py = pybind11;
 PYBIND11_MODULE(pylcs, m) {
     m.def("lcs", &lcs_sequence_length, R"pbdoc(Longest common subsequence)pbdoc");
     m.def("lcs_sequence_length", &lcs_sequence_length, R"pbdoc(Longest common subsequence)pbdoc");
-    m.def("lcs_sequence_idx", &lcs_sequence_idx, R"pbdoc(Longest common subsequence indices mapping from str to ref)pbdoc");
+    m.def("lcs_sequence_idx", &lcs_sequence_idx, R"pbdoc(Longest common subsequence indices mapping from str to ref)pbdoc",
+        py::arg("s"), py::arg("ref"));
     m.def("lcs_of_list", &lcs_sequence_of_list, R"pbdoc(Longest common subsequence of list)pbdoc");
     m.def("lcs_sequence_of_list", &lcs_sequence_of_list, R"pbdoc(Longest common subsequence of list)pbdoc");
 
     m.def("lcs2", &lcs_string_length, R"pbdoc(Longest common substring)pbdoc");
     m.def("lcs_string_length", &lcs_string_length, R"pbdoc(Longest common substring)pbdoc");
-    m.def("lcs_string_idx", &lcs_string_idx, R"pbdoc(Longest common substring indices mapping from str to ref)pbdoc");
+    m.def("lcs_string_idx", &lcs_string_idx, R"pbdoc(Longest common substring indices mapping from str to ref)pbdoc",
+        py::arg("s"), py::arg("ref"));
     m.def("lcs2_of_list", &lcs_string_of_list, R"pbdoc(Longest common substring of list)pbdoc");
     m.def("lcs_string_of_list", &lcs_string_of_list, R"pbdoc(Longest common substring of list)pbdoc");
 

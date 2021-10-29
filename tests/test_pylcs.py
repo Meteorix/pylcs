@@ -2,7 +2,7 @@
 import pylcs
 
 
-def test_lcs():
+def test_lcs_sequence():
     assert pylcs.lcs("aaa", "") == 0
     assert pylcs.lcs("", "bbb") == 0
     assert pylcs.lcs("aaa", "bbb") == 0
@@ -11,7 +11,7 @@ def test_lcs():
     assert pylcs.lcs_sequence_length("aaa你好", "你好呀") == 2
 
 
-def test_lcs_of_list():
+def test_lcs_sequence_of_list():
     assert pylcs.lcs_of_list("aaa", ["aabbbaa"] * 10) == [3] * 10
     assert pylcs.lcs_of_list("aaa你好", ["你好呀"] * 10) == [2] * 10
     assert pylcs.lcs_sequence_of_list("aaa", ["aabbbaa"] * 10) == [3] * 10
@@ -28,7 +28,7 @@ def test_lcs_sequence_idx():
     assert pylcs.lcs_sequence_idx("aaa你好", "你好呀") == [-1, -1, -1, 0, 1]
 
 
-def test_lcs2():
+def test_lcs_string():
     assert pylcs.lcs2("aaa", "") == 0
     assert pylcs.lcs2("", "bbb") == 0
     assert pylcs.lcs2("aaa", "bbb") == 0
@@ -37,7 +37,7 @@ def test_lcs2():
     assert pylcs.lcs_string_length("aaa你好", "好呀你") == 1
 
 
-def test_lcs2_of_list():
+def test_lcs_string_of_list():
     assert pylcs.lcs2_of_list("aaa", ["aabbbaa"] * 10) == [2] * 10
     assert pylcs.lcs2_of_list("aaa你好", ["好呀你"] * 10) == [1] * 10
     assert pylcs.lcs_string_of_list("aaa", ["aabbbaa"] * 10) == [2] * 10
@@ -55,6 +55,7 @@ def test_lcs_string_idx():
 
 
 def test_edit_distance():
+    assert pylcs.edit_distance("", "") == 0
     assert pylcs.edit_distance("", "bbb") == 3
     assert pylcs.edit_distance("aaa", "") == 3
     assert pylcs.edit_distance("aaa", "aaa") == 0
@@ -71,7 +72,8 @@ def test_edit_distance_weighted():
     assert pylcs.edit_distance("aaa", "", {}) == 3
     assert pylcs.edit_distance("aaa", "", {'': {'a': 2}}) == 3
     assert pylcs.edit_distance("aaa", "", {'a': {'': 2}}) == 6
-    assert pylcs.edit_distance("aaa", "bbb", {'a': {'b': 2}}) == 6
+    assert pylcs.edit_distance("aaa", "aba", {'a': {'b': 2}}) == 2
+    assert pylcs.edit_distance("aaa", "aba", {'a': {'b': 3}}) == 2
     assert pylcs.edit_distance("aaa", "aaa", {'a': {'a': 1}}) == 3
     assert pylcs.edit_distance("aa", "aababb", {'a': {'a': 0.5, 'b': 2}}) == 5
     assert pylcs.edit_distance("x你好", "你好呀", {'你': {'你': -1}}) == 1
@@ -90,13 +92,12 @@ def test_edit_distance_of_list():
     assert pylcs.edit_distance_of_list("aaa你好", ["bbb", "你好呀"] * 10) == [5, 4] * 10
 
 
-test_lcs()
-test_lcs_of_list()
+test_lcs_sequence()
+test_lcs_sequence_of_list()
 test_lcs_sequence_idx()
+test_lcs_string()
+test_lcs_string_of_list()
 test_lcs_string_idx()
-test_lcs2()
-test_lcs2()
-test_lcs2_of_list()
 test_edit_distance()
 test_edit_distance_weighted()
 test_edit_distance_of_list()
