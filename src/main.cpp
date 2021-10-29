@@ -260,6 +260,59 @@ float levenshtein_distance_weighted(const string &str1, const string &str2, map<
 }
 
 
+vector<int> levenshtein_distance_idx_weighted(const string &str, const string &ref, map<string, map<string, float>> &weight) {
+    vector<string> s1 = utf8_split(str);
+    vector<string> s2 = utf8_split(ref);
+    string __("");
+    int m = s1.size();
+    int n = s2.size();
+    vector<vector<float>> dp(m + 1, vector<float>(n + 1));
+    vector<vector<char>> direct(m + 1, vector<char>(n + 1));
+    vector<int> res(m, -1);
+    int i, j;
+    float si, sj, sij;
+
+    dp[0][0] = 0;
+    for (i = 1; i <= m; i++) {
+        dp[i][0] = dp[i-1][0] + (__contains(weight, s1[i-1], __) ? weight[s1[i-1]][__] : 1);
+        direct[i][0] = 's';
+    }
+    for (j = 1; j <= n; j++) {
+        dp[0][j] = dp[0][j-1] + (__contains(weight, __, s2[j-1]) ? weight[__][s2[j-1]] : 1);
+        direct[0][j] = 'r';
+    }
+    for (i = 1; i <= m; i++) {
+        for (j = 1; j <= n; j++) {
+            si = __contains(weight, s1[i-1], __) ? weight[s1[i-1]][__] : 1;
+            sj = __contains(weight, __, s2[j-1]) ? weight[__][s2[j-1]] : 1;
+            sij = __contains(weight, s1[i-1], s2[j-1]) ? weight[s1[i-1]][s2[j-1]] : (s1[i-1] == s2[j-1] ? 0 : 1);
+            if (dp[i-1][j-1] + sij <= dp[i-1][j] + si && dp[i-1][j-1] + sij <= dp[i][j-1] + sj) {
+                dp[i][j] = dp[i-1][j-1] + sij;
+                direct[i][j] = 'm';
+            }
+            else if (dp[i-1][j] + si <= dp[i][j-1] + sj) {
+                dp[i][j] = dp[i-1][j] + si;
+                direct[i][j] = 's';
+            }
+            else {
+                dp[i][j] = dp[i][j-1] + sj;
+                direct[i][j] = 'r';
+            }
+        }
+    }
+
+    for (i = m, j = n; i > 0 && j > 0; ){
+        if (direct[i][j] == 'm') {
+            res[i-1] = j-1;
+            i--; j--;
+        }
+        else if (direct[i][j] == 's') i--;
+        else if (direct[i][j] == 'r') j--;
+    }
+    return res;
+}
+
+
 vector<int> levenshtein_distance_of_list(const string &str1, vector<string> &str_list){
     int size = str_list.size();
     vector<int> ls(size);
@@ -290,9 +343,15 @@ PYBIND11_MODULE(pylcs, m) {
     m.def("lcs_string_of_list", &lcs_string_of_list, R"pbdoc(Longest common substring of list)pbdoc");
 
     m.def("levenshtein_distance", &levenshtein_distance, R"pbdoc(Levenshtein Distance of Two Strings)pbdoc");
-    m.def("levenshtein_distance", &levenshtein_distance_weighted, R"pbdoc(Levenshtein Distance of Two Strings. A weight dict<str, dict<str, float>> can be used.)pbdoc");
+    m.def("levenshtein_distance", &levenshtein_distance_weighted, R"pbdoc(Levenshtein Distance of Two Strings. A weight dict<str, dict<str, float>> can be used.)pbdoc",
+        py::arg("str1"), py::arg("str2"), py::arg("weight"));
+    m.def("levenshtein_distance_idx", &levenshtein_distance_idx_weighted, R"pbdoc(Levenshtein Distance indices mapping from str to ref)pbdoc",
+        py::arg("s"), py::arg("ref"), py::arg("weight")=map<string, map<string, float>>());
     m.def("edit_distance", &levenshtein_distance, R"pbdoc(Same As levenshtein_distance(): Levenshtein Distance of Two Strings)pbdoc");
-    m.def("edit_distance", &levenshtein_distance_weighted, R"pbdoc(Same As levenshtein_distance(): Levenshtein Distance of Two Strings)pbdoc");
+    m.def("edit_distance", &levenshtein_distance_weighted, R"pbdoc(Same As levenshtein_distance(): Levenshtein Distance of Two Strings)pbdoc",
+        py::arg("str1"), py::arg("str2"), py::arg("weight"));
+    m.def("edit_distance_idx", &levenshtein_distance_idx_weighted, R"pbdoc(Edit Distance indices mapping from str to ref)pbdoc",
+        py::arg("s"), py::arg("ref"), py::arg("weight")=map<string, map<string, float>>());
     m.def("levenshtein_distance_of_list", &levenshtein_distance_of_list, R"pbdoc(Levenshtein Distance of one string to a list of strings)pbdoc");
     m.def("edit_distance_of_list", &levenshtein_distance_of_list, R"pbdoc(Levenshtein Distance of one string to a list of strings)pbdoc");
 }

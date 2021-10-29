@@ -86,6 +86,14 @@ def test_edit_distance_weighted():
     assert pylcs.edit_distance("GCT", "CTT", weight) == 6
 
 
+def test_edit_distance_idx():
+    assert pylcs.edit_distance_idx("aaa", "") == [-1, -1, -1]
+    assert pylcs.edit_distance_idx("", "bbb") == []
+    assert pylcs.edit_distance_idx("aaa", "aba", {'a': {'b': 1}}) == [0, 1, 2]
+    assert pylcs.edit_distance_idx("aaa", "aba", {'a': {'b': 3}}) == [0, -1, 2]
+    assert pylcs.edit_distance_idx("aa", "aabb", {'a': {'a': 2, 'b': 0}}) == [2, 3]
+
+
 def test_edit_distance_of_list():
     assert pylcs.edit_distance_of_list("aaa", ["bbb"] * 10) == [3] * 10
     assert pylcs.edit_distance_of_list("aaa你好", ["你好呀"] * 10) == [4] * 10
@@ -100,4 +108,5 @@ test_lcs_string_of_list()
 test_lcs_string_idx()
 test_edit_distance()
 test_edit_distance_weighted()
+test_edit_distance_idx()
 test_edit_distance_of_list()

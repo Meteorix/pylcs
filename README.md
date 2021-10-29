@@ -96,3 +96,16 @@ pylcs.edit_distance("", "aa", {'': {'a': 0.5}})
 >>> pylcs.edit_distance("", "aa", {'': {'a': 0.5}})
 1.0
 """
+
+#  finding edit distance alignment from string A to B
+pylcs.edit_distance_idx("aaa", "aba")
+pylcs.edit_distance_idx("aaa", "aba", {'a': {'b': 3}})
+pylcs.edit_distance_idx("aa", "aabb", {'a': {'a': 2, 'b': 0}})
+"""
+>>> pylcs.edit_distance_idx("aaa", "aba")
+[0, 1, 2]
+>>> pylcs.edit_distance_idx("aaa", "aba", {'a': {'b': 3}})
+[0, -1, 2]
+>>> pylcs.edit_distance_idx("aa", "aabb", {'a': {'a': 2, 'b': 0}})
+[2, 3]
+"""
