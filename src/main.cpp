@@ -201,8 +201,6 @@ vector<int> lcs_string_of_list(const string &str1, vector<string> &str_list){
 
 // 编辑距离
 int levenshtein_distance(const string &str1, const string &str2) {
-    if (str1 == "" || str2 == "")
-        return 0;
     vector<string> s1 = utf8_split(str1);
     vector<string> s2 = utf8_split(str2);
     int m = s1.size();
@@ -223,6 +221,39 @@ int levenshtein_distance(const string &str1, const string &str2) {
             } else {
                 dp[i][j] = 1 + min({dp[i][j - 1], dp[i - 1][j], dp[i - 1][j - 1]});
             }
+        }
+    }
+    return dp[m][n];
+}
+
+
+bool inline __contains(map<string, map<string, float>> m, string k1, string k2) {
+    return m.find(k1) != m.end() && m[k1].find(k2) != m[k1].end();
+}
+
+float levenshtein_distance_weighted(const string &str1, const string &str2, map<string, map<string, float>> &weight) {
+    vector<string> s1 = utf8_split(str1);
+    vector<string> s2 = utf8_split(str2);
+    string __("");
+    int m = s1.size();
+    int n = s2.size();
+    vector<vector<float>> dp(m + 1, vector<float>(n + 1));
+    int i, j;
+    float si, sj, sij;
+
+    dp[0][0] = 0;
+    for (i = 1; i <= m; i++) {
+        dp[i][0] = dp[i-1][0] + (__contains(weight, s1[i-1], __) ? weight[s1[i-1]][__] : 1);
+    }
+    for (j = 1; j <= n; j++) {
+        dp[0][j] = dp[0][j-1] + (__contains(weight, __, s2[j-1]) ? weight[__][s2[j-1]] : 1);
+    }
+    for (i = 1; i <= m; i++) {
+        for (j = 1; j <= n; j++) {
+            si = __contains(weight, s1[i-1], __) ? weight[s1[i-1]][__] : 1;
+            sj = __contains(weight, __, s2[j-1]) ? weight[__][s2[j-1]] : 1;
+            sij = __contains(weight, s1[i-1], s2[j-1]) ? weight[s1[i-1]][s2[j-1]] : (s1[i-1] == s2[j-1] ? 0 : 1);
+            dp[i][j] = min({dp[i-1][j] + si, dp[i][j-1] + sj, dp[i-1][j-1] + sij});
         }
     }
     return dp[m][n];
@@ -257,7 +288,9 @@ PYBIND11_MODULE(pylcs, m) {
     m.def("lcs_string_of_list", &lcs_string_of_list, R"pbdoc(Longest common substring of list)pbdoc");
 
     m.def("levenshtein_distance", &levenshtein_distance, R"pbdoc(Levenshtein Distance of Two Strings)pbdoc");
+    m.def("levenshtein_distance", &levenshtein_distance_weighted, R"pbdoc(Levenshtein Distance of Two Strings. A weight dict<str, dict<str, float>> can be used.)pbdoc");
     m.def("edit_distance", &levenshtein_distance, R"pbdoc(Same As levenshtein_distance(): Levenshtein Distance of Two Strings)pbdoc");
+    m.def("edit_distance", &levenshtein_distance_weighted, R"pbdoc(Same As levenshtein_distance(): Levenshtein Distance of Two Strings)pbdoc");
     m.def("levenshtein_distance_of_list", &levenshtein_distance_of_list, R"pbdoc(Levenshtein Distance of one string to a list of strings)pbdoc");
     m.def("edit_distance_of_list", &levenshtein_distance_of_list, R"pbdoc(Levenshtein Distance of one string to a list of strings)pbdoc");
 }

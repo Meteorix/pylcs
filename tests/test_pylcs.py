@@ -55,10 +55,33 @@ def test_lcs_string_idx():
 
 
 def test_edit_distance():
+    assert pylcs.edit_distance("", "bbb") == 3
+    assert pylcs.edit_distance("aaa", "") == 3
+    assert pylcs.edit_distance("aaa", "aaa") == 0
     assert pylcs.edit_distance("aaa", "bbb") == 3
     assert pylcs.edit_distance("aaa", "aabbbaa") == 4
     assert pylcs.edit_distance("你好", "中国") == 2
     assert pylcs.edit_distance("aaa你好", "你好呀") == 4
+
+
+def test_edit_distance_weighted():
+    assert pylcs.edit_distance("", "bbb", {}) == 3
+    assert pylcs.edit_distance("", "bbb", {'': {'b': 2}}) == 6
+    assert pylcs.edit_distance("", "bbb", {'b': {'': 2}}) == 3
+    assert pylcs.edit_distance("aaa", "", {}) == 3
+    assert pylcs.edit_distance("aaa", "", {'': {'a': 2}}) == 3
+    assert pylcs.edit_distance("aaa", "", {'a': {'': 2}}) == 6
+    assert pylcs.edit_distance("aaa", "bbb", {'a': {'b': 2}}) == 6
+    assert pylcs.edit_distance("aaa", "aaa", {'a': {'a': 1}}) == 3
+    assert pylcs.edit_distance("aa", "aababb", {'a': {'a': 0.5, 'b': 2}}) == 5
+    assert pylcs.edit_distance("x你好", "你好呀", {'你': {'你': -1}}) == 1
+    assert pylcs.edit_distance("x你好", "你好呀", {'你好': {'你好': -1}}) == 2
+    weight = {'A': {'A': -2, 'C': 7, 'G': 5, 'T': 7, '': 5},
+              'C': {'A': 7, 'C': -2, 'G': 7, 'T': 5, '': 5},
+              'G': {'A': 5, 'C': 7, 'G': -2, 'T': 7, '': 5},
+              'T': {'A': 7, 'C': 5, 'G': 7, 'T': -2, '': 5},
+              '': {'A': 5, 'C': 5, 'G': 5, 'T': 5, '': 0}}
+    assert pylcs.edit_distance("GCT", "CTT", weight) == 6
 
 
 def test_edit_distance_of_list():
@@ -75,4 +98,5 @@ test_lcs2()
 test_lcs2()
 test_lcs2_of_list()
 test_edit_distance()
+test_edit_distance_weighted()
 test_edit_distance_of_list()
