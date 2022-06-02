@@ -90,10 +90,10 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pylcs',
-    version='0.0.6',
-    author='Meteorix',
-    author_email='lxhustauto@gmail.com',
-    url='https://github.com/Meteorix/pylcs',
+    version='0.0.7',
+    author='kuangzh',
+    author_email='kuangzh@smail.nju.edu.cn',
+    url='https://github.com/kuangkzh/pylcs',
     description='super fast cpp implementation of longest common subsequence',
     long_description=long_description,
     long_description_content_type="text/markdown",

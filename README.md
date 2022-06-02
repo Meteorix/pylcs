@@ -1,4 +1,7 @@
 # pylcs
+
+**The [original repository](https://github.com/Meteorix/pylcs) stop maintenance. This is a transfer version**
+
 **pylcs** is a super fast c++ library which adopts dynamic programming(DP) algorithm to solve two classic LCS problems as below .  
   
 [The longest common subsequence](https://en.wikipedia.org/wiki/Longest_common_subsequence_problem) problem is the problem of finding the longest subsequence common to all sequences in a set of sequences (often just two sequences).  
