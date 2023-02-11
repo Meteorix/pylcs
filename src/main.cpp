@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string.h>
 #include <sstream>
+#include <algorithm>
 using namespace std;
 
 
