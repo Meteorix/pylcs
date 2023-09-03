@@ -20,7 +20,7 @@ class get_pybind_include(object):
 
 ext_modules = [
     Extension(
-        'pylcs',
+        '_pylcs',
         ['src/main.cpp'],
         include_dirs=[
             # Path to pybind11 headers
@@ -90,13 +90,14 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pylcs',
-    version='0.0.8',
+    version='0.1.0',
     author='kuangzh',
     author_email='kuangzh@smail.nju.edu.cn',
     url='https://github.com/kuangkzh/pylcs',
     description='super fast cpp implementation of longest common subsequence',
     long_description=long_description,
     long_description_content_type="text/markdown",
+    packages=["pylcs"],
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},

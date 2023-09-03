@@ -12,6 +12,8 @@
 
 We also support Chinese(or any UTF-8) string.
 
+Colorful Visualization: After 0.1.0, you can visualize the lcs result with colorful output.
+
 
 Install
 -------
@@ -112,3 +114,19 @@ pylcs.edit_distance_idx("aa", "aabb", {'a': {'a': 2, 'b': 0}})
 >>> pylcs.edit_distance_idx("aa", "aabb", {'a': {'a': 2, 'b': 0}})
 [2, 3]
 """
+```
+
+After 0.1.0, you can make a visualized comparison with colorful output. Using `coloring_match_sequence` to color the s1 and s2 by a match list like:
+```python
+s1, s2 = "abcdefghijklmnopq", "-c-fgh-kl-nop-q"
+match_list = pylcs.lcs_sequence_idx(s1, s2)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=1)
+print(colored_s1, colored_s2)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=2)
+print(colored_s1, colored_s2)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=3)
+print(colored_s1, colored_s2)
+```
+Note that the colorful output uses ANSI escape codes. Referring to https://en.wikipedia.org/wiki/ANSI_escape_code.
+
+The ANSI codes may not work in win32 command line.

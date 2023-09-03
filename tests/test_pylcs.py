@@ -1,5 +1,6 @@
 # encoding=utf-8
 import pylcs
+import colorama
 
 
 def test_lcs_sequence():
@@ -100,6 +101,17 @@ def test_edit_distance_of_list():
     assert pylcs.edit_distance_of_list("aaa你好", ["bbb", "你好呀"] * 10) == [5, 4] * 10
 
 
+def test_coloring_match_sequence():
+    s1, s2 = "abcdefghijklmnopq", "-c-fgh-kl-nop-q"
+    match_list = pylcs.lcs_sequence_idx(s1, s2)
+    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=1)
+    print(colored_s1, colored_s2)
+    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=2)
+    print(colored_s1, colored_s2)
+    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=3)
+    print(colored_s1, colored_s2)
+
+
 test_lcs_sequence()
 test_lcs_sequence_of_list()
 test_lcs_sequence_idx()
@@ -110,3 +122,6 @@ test_edit_distance()
 test_edit_distance_weighted()
 test_edit_distance_idx()
 test_edit_distance_of_list()
+
+colorama.init(autoreset=True)
+test_coloring_match_sequence()

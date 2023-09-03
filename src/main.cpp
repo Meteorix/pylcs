@@ -328,7 +328,7 @@ vector<int> levenshtein_distance_of_list(const string &str1, vector<string> &str
 namespace py = pybind11;
 
 
-PYBIND11_MODULE(pylcs, m) {
+PYBIND11_MODULE(_pylcs, m) {
     m.def("lcs", &lcs_sequence_length, R"pbdoc(Longest common subsequence)pbdoc");
     m.def("lcs_sequence_length", &lcs_sequence_length, R"pbdoc(Longest common subsequence)pbdoc");
     m.def("lcs_sequence_idx", &lcs_sequence_idx, R"pbdoc(Longest common subsequence indices mapping from str to ref)pbdoc",
