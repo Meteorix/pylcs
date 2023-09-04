@@ -120,12 +120,18 @@ After 0.1.0, you can make a visualized comparison with colorful output. Using `c
 ```python
 s1, s2 = "abcdefghijklmnopq", "-c-fgh-kl-nop-q"
 match_list = pylcs.lcs_sequence_idx(s1, s2)
-colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=1)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=1)
 print(colored_s1, colored_s2)
-colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=2)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=2)
 print(colored_s1, colored_s2)
-colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=3)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=3)
 print(colored_s1, colored_s2)
+```
+```python
+s1, s2 = "How does this string edit to s2?", "How similar is this string to s1?"
+match_list = pylcs.edit_distance_idx(s1, s2)
+colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 4, 4, 230, 230, t=2)
+print(colored_s1, colored_s2, sep='\n')
 ```
 Note that the colorful output uses ANSI escape codes. Referring to https://en.wikipedia.org/wiki/ANSI_escape_code.
 

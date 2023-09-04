@@ -104,11 +104,11 @@ def test_edit_distance_of_list():
 def test_coloring_match_sequence():
     s1, s2 = "abcdefghijklmnopq", "-c-fgh-kl-nop-q"
     match_list = pylcs.lcs_sequence_idx(s1, s2)
-    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=1)
+    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=1)
     print(colored_s1, colored_s2)
-    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=2)
+    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=2)
     print(colored_s1, colored_s2)
-    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 1, 1, "#FFEEAA", "#FFEEAA", t=3)
+    colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=3)
     print(colored_s1, colored_s2)
 
 
