@@ -127,12 +127,15 @@ print(colored_s1, colored_s2)
 colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 11, 11, "#2266ff", "#2266ff", t=3)
 print(colored_s1, colored_s2)
 ```
+![](https://github.com/kuangkzh/pylcs/blob/master/tests/coloring_match_sequence.jpg)
 ```python
 s1, s2 = "How does this string edit to s2?", "How similar is this string to s1?"
 match_list = pylcs.edit_distance_idx(s1, s2)
 colored_s1, colored_s2 = pylcs.coloring_match_sequence(match_list, s1, s2, 4, 4, 230, 230, t=2)
 print(colored_s1, colored_s2, sep='\n')
 ```
+![](https://github.com/kuangkzh/pylcs/blob/master/tests/coloring_match_sequence_2.jpg)
+
 Note that the colorful output uses ANSI escape codes. Referring to https://en.wikipedia.org/wiki/ANSI_escape_code.
 
 The ANSI codes may not work in win32 command line.
