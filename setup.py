@@ -90,7 +90,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pylcs',
-    version='0.1.0',
+    version='0.1.1',
     author='kuangzh',
     author_email='kuangzh@smail.nju.edu.cn',
     url='https://github.com/kuangkzh/pylcs',
@@ -102,4 +102,5 @@ setup(
     install_requires=['pybind11>=2.2'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
+    license='Apache 2.0'
 )
